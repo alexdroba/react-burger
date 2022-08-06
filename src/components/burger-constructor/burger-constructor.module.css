@@ -1,8 +1,17 @@
+.constructorWrapper {
+  padding: 100px 16px 92px;
+  max-height: calc(100vh - 82px);
+}
+
 .constructor {
   display: flex;
   flex-direction: column;
   align-items: stretch;
   list-style: none;
+  margin: 16px 0;
+  min-height: 80px;
+  max-height: calc(100vh - 82px - 100px - 92px - 96px - 80px - 40px - 64px - 20px);
+  overflow-y: auto;
 }
 
 .constructor > div:not(:last-child) {
@@ -17,4 +26,15 @@
 
 .constructorItem > svg {
   margin-right: 8px;
+}
+
+.constructorTotal {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.constructorTotal > svg {
+  margin-left: 9.5px;
+  margin-right: 40px;
 }
