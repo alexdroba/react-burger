@@ -1,15 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import IngredientsItem from '../ingredients-item/ingredients-item';
 
 import styles from './ingredients-list.module.css';
 
-function IngredientsList(props) {
+function IngredientsList({ title, data }) {
   return (
     <div className={styles.ingridientsListWrapper}>
-      <p className="text text_type_main-medium mb-6">{props.title}</p>
+      <p className="text text_type_main-medium mb-6">{title}</p>
       <ul className={styles.ingridientsList}>
-        {props.data.map((item) => (
+        {data.map((item) => (
           <li key={item._id}>
             <IngredientsItem {...item} />
           </li>
@@ -18,5 +19,11 @@ function IngredientsList(props) {
     </div>
   );
 }
+
+IngredientsList.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object),
+  title: PropTypes.string,
+  className: PropTypes.string,
+};
 
 export default IngredientsList;
