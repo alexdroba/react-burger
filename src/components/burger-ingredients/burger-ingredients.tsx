@@ -12,9 +12,6 @@ function BurgerIngredients({ data }) {
   const sauce = data.filter((item) => item.type === 'sauce');
   const main = data.filter((item) => item.type === 'main');
 
-  console.log(data, 'IN');
-  console.log(bun);
-
   return (
     <div>
       <p className="text text_type_main-large mt-10 mb-5">Соберите бургер</p>
@@ -29,11 +26,11 @@ function BurgerIngredients({ data }) {
           Начинки
         </Tab>
       </div>
-      <>
+      <div className={styles.ingredientsList}>
         <IngredientsList title="Булки" data={bun} />
         <IngredientsList title="Соусы" data={sauce} />
         <IngredientsList title="Начинки" data={main} />
-      </>
+      </div>
     </div>
   );
 }
