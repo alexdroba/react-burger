@@ -14,7 +14,7 @@ function App() {
       <AppHeader />
       <div className={styles.container}>
         <BurgerIngredients data={data} />
-        <BurgerConstructor />
+        <BurgerConstructor data={data} />
       </div>
     </>
   );
