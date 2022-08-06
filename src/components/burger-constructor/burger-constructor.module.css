@@ -1,5 +1,4 @@
 .constructorWrapper {
-  /* margin: 100px 16px 92px; */
   padding: 100px 0 92px 16px;
   max-height: calc(100vh - 82px);
 }
