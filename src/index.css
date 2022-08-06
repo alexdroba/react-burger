@@ -5,3 +5,8 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+body {
+  background-color: #131316;
+  color: #f2f2f3;
+}
