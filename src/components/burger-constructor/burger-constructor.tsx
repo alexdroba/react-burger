@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import {
   ConstructorElement,
@@ -52,5 +53,10 @@ function BurgerConstructor({ data }) {
     </div>
   );
 }
+
+BurgerConstructor.propTypes = {
+  data: PropTypes.object,
+  className: PropTypes.string,
+};
 
 export default BurgerConstructor;
