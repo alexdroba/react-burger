@@ -1,5 +1,6 @@
 .constructorWrapper {
-  padding: 100px 16px 92px;
+  /* margin: 100px 16px 92px; */
+  padding: 100px 0 92px 16px;
   max-height: calc(100vh - 82px);
 }
 
@@ -7,6 +8,7 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  gap: 16px;
   list-style: none;
   margin: 16px 0;
   min-height: 80px;
@@ -22,20 +24,38 @@
 .constructorItem {
   display: flex;
   align-items: center;
-  margin-bottom: 16px;
+  padding-right: 16px;
 }
 
 .constructorItem > svg {
   margin-right: 8px;
 }
 
+.constructorItem > div,
+.constructorFirstItem > div,
+.constructorLastItem > div {
+  max-width: none;
+}
+
+.constructorFirstItem {
+  margin: 0 16px 16px 32px;
+}
+
+.constructorLastItem {
+  margin-left: 32px;
+  margin-right: 16px;
+}
+
 .constructorTotal {
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  margin-right: 16px;
 }
 
 .constructorTotal > svg {
+  width: 36px;
+  height: 36px;
   margin-left: 9.5px;
   margin-right: 40px;
 }

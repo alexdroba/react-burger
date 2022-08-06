@@ -15,7 +15,7 @@ function BurgerConstructor({ data }) {
   return (
     <div className={styles.constructorWrapper}>
       <div className="mb-10">
-        <div className="ml-8 mb-4">
+        <div className={styles.constructorFirstItem}>
           <ConstructorElement
             type="top"
             isLocked={true}
@@ -32,7 +32,7 @@ function BurgerConstructor({ data }) {
             </li>
           ))}
         </ul>
-        <div className="ml-8">
+        <div className={styles.constructorLastItem}>
           <ConstructorElement
             type="bottom"
             isLocked={true}
