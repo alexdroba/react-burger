@@ -5,8 +5,6 @@ import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-c
 import styles from './ingredients-item.module.css';
 
 function IngredientsItem(props) {
-  console.log(props, 'ITEM');
-
   return (
     <div className={styles.ingredientsItem}>
       <img src={props.image} alt="ingredient-img" />

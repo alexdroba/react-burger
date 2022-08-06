@@ -1,4 +1,5 @@
 .ingredientsItem {
   position: relative;
   text-align: center;
+  cursor: pointer;
 }
