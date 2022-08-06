@@ -7,7 +7,7 @@ import styles from './ingredients-list.module.css';
 function IngredientsList(props) {
   return (
     <div className={styles.ingridientsListWrapper}>
-      <p className="text text_type_main-medium mb-6">Булки</p>
+      <p className="text text_type_main-medium mb-6">{props.title}</p>
       <ul className={styles.ingridientsList}>
         {props.data.map((item) => (
           <li key={item._id}>
