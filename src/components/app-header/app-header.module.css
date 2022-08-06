@@ -29,6 +29,10 @@
   left: 0;
 }
 
+.navLeftBar .buttonIcon:first-child {
+  margin-right: 8px;
+}
+
 .navRightBar {
   position: absolute;
   right: 0;
