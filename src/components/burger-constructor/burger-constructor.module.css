@@ -1,0 +1,20 @@
+.constructor {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  list-style: none;
+}
+
+.constructor > div:not(:last-child) {
+  margin-bottom: 16px;
+}
+
+.constructorItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.constructorItem > svg {
+  margin-right: 8px;
+}
