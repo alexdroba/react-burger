@@ -38,7 +38,6 @@ function BurgerIngredients({ data }) {
 
 BurgerIngredients.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object),
-  className: PropTypes.string,
 };
 
 export default BurgerIngredients;
