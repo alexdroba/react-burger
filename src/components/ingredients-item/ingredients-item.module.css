@@ -10,3 +10,7 @@
   align-items: center;
   margin: 4px 0;
 }
+
+.ingredientsItemName {
+  min-height: 48px;
+}
