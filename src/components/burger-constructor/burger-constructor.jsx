@@ -11,7 +11,8 @@ import {
 import styles from './burger-constructor.module.css';
 
 function BurgerConstructor({ data }) {
-  const [firstItem, lastItem] = [data[0], data[data.length - 1]];
+  const bun = data.filter((item) => item.type === 'bun')[0];
+  const ingredients = data.filter((item) => item.type !== 'bun');
 
   return (
     <div className={styles.constructorWrapper}>
@@ -20,13 +21,13 @@ function BurgerConstructor({ data }) {
           <ConstructorElement
             type="top"
             isLocked={true}
-            text={firstItem.name}
-            price={firstItem.price}
-            thumbnail={firstItem.image}
+            text={bun.name + ' (верх)'}
+            price={bun.price}
+            thumbnail={bun.image}
           />
         </div>
         <ul className={styles.constructor}>
-          {data.map((item) => (
+          {ingredients.map((item) => (
             <li className={styles.constructorItem} key={item._id}>
               <DragIcon type="primary" />
               <ConstructorElement text={item.name} price={item.price} thumbnail={item.image} />
@@ -37,9 +38,9 @@ function BurgerConstructor({ data }) {
           <ConstructorElement
             type="bottom"
             isLocked={true}
-            text={lastItem.name}
-            price={lastItem.price}
-            thumbnail={lastItem.image}
+            text={bun.name + ' (низ)'}
+            price={bun.price}
+            thumbnail={bun.image}
           />
         </div>
       </div>
