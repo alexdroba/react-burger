@@ -8,12 +8,10 @@ function IngredientsItem(props) {
   return (
     <div className={styles.ingredientsItem}>
       <img src={props.image} alt="ingredient-img" />
-      <p
-        className="text text_type_digits-default mt-1 mb-1"
-        style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <span className="mr-2">{props.price}</span>
+      <div className={styles.ingredientsItemPrice}>
+        <span className="text text_type_digits-default mr-2">{props.price}</span>
         <CurrencyIcon type="primary" />
-      </p>
+      </div>
       <p className="text text_type_main-default" style={{ minHeight: 48 }}>
         {props.name}
       </p>
