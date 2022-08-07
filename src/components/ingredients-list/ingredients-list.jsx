@@ -23,7 +23,6 @@ function IngredientsList({ title, data }) {
 IngredientsList.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object),
   title: PropTypes.string,
-  className: PropTypes.string,
 };
 
 export default IngredientsList;
