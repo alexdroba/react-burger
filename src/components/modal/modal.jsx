@@ -7,7 +7,7 @@ import ModalOverlay from '../modal-overlay/modal-overlay';
 
 import styles from './modal.module.css';
 
-function Modal({ title, onClose }) {
+function Modal({ title, onClose, children }) {
   const modalRoot = document.getElementById('modal');
 
   const handleKeyPress = (e) => {
@@ -33,6 +33,7 @@ function Modal({ title, onClose }) {
             <CloseIcon type="primary" />
           </div>
         </div>
+        {children}
       </div>
       <ModalOverlay onClose={onClose} />
     </>,
