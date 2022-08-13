@@ -34,6 +34,8 @@ function App() {
     <>
       <AppHeader />
       <div className={styles.container}>
+        {isLoading && 'Загрузка...'}
+        {hasError && 'Произошла ошибка!'}
         {!isLoading && !hasError && ingredientsData.length && (
           <>
             <BurgerIngredients data={ingredientsData} />
