@@ -1,0 +1,12 @@
+.container {
+  composes: container from '../../index.css';
+  display: flex;
+}
+
+.container > div {
+  flex-basis: 50%;
+}
+
+.container > div:first-child {
+  margin-right: 40px;
+}

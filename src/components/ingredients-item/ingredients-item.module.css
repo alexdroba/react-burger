@@ -1,0 +1,16 @@
+.ingredientsItem {
+  position: relative;
+  text-align: center;
+  cursor: pointer;
+}
+
+.ingredientsItemPrice {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 4px 0;
+}
+
+.ingredientsItemName {
+  min-height: 48px;
+}
