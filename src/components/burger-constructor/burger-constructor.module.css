@@ -12,7 +12,7 @@
   margin: 16px 0;
   min-height: 80px;
   /* Здесь захардкожено, не знаю пока как повешать DOMContentLoaded в функциональных компонентах, для того чтобы считать его через JS */
-  max-height: calc(100vh - 82px - 100px - 92px - 96px - 80px - 40px - 64px - 20px);
+  max-height: calc(100vh - 574px);
   overflow-y: auto;
 }
 
