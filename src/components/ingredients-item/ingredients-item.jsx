@@ -3,16 +3,19 @@ import React, { useState } from 'react';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import Modal from '../modal/modal';
+import IngredientDetails from '../ingredient-details/ingredient-details';
 
 import styles from './ingredients-item.module.css';
 
 function IngredientsItem(props) {
-  const [state, setState] = useState({
-    modalVisible: false,
-  });
+  const [modalVisible, setModalVisible] = useState(false);
 
   const handleOpenModal = () => {
-    setState({ ...state, modalVisible: true });
+    setModalVisible(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalVisible(false);
   };
 
   return (
@@ -28,9 +31,14 @@ function IngredientsItem(props) {
         </div>
         <Counter count={1} size="default" />
       </div>
-      <div>{state.modalVisible && <Modal />}</div>
+      <div style={{ overflow: 'hidden' }}>
+        {modalVisible && (
+          <Modal title="Детали ингредиента" onClose={handleCloseModal}>
+            <IngredientDetails {...props} />
+          </Modal>
+        )}
+      </div>
     </>
   );
 }
-
 export default IngredientsItem;
