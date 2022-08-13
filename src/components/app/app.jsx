@@ -17,15 +17,17 @@ function App() {
     ingredientsData: [],
   });
 
-  useEffect(() => {
-    const getData = async () => {
-      setState({ ...state, hasError: false, isLoading: true });
-      const res = await fetch(dataUrl);
-      const data = await res.json();
-      setState({ ...state, ingredientsData: data.data, isLoading: false });
-    };
+  const getIngredientsData = () => {
+    return fetch(dataUrl)
+      .then((res) => res.json())
+      .then((data) => setState({ ...state, ingredientsData: data.data, isLoading: false }))
+      .catch((e) => {
+        setState({ ...state, hasError: true, isLoading: false });
+      });
+  };
 
-    getData();
+  useEffect(() => {
+    getIngredientsData();
   }, []);
 
   const { ingredientsData, isLoading, hasError } = state;
@@ -34,8 +36,12 @@ function App() {
     <>
       <AppHeader />
       <div className={styles.container}>
-        <BurgerIngredients data={ingredientsData} />
-        <BurgerConstructor data={ingredientsData} />
+        {!isLoading && !hasError && ingredientsData.length && (
+          <>
+            <BurgerIngredients data={ingredientsData} />
+            <BurgerConstructor data={ingredientsData} />
+          </>
+        )}
       </div>
     </>
   );
