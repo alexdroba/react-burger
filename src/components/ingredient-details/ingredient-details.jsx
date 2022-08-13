@@ -1,6 +1,6 @@
 import React from 'react';
 
-import IngredientDetailsProperty from '../../ingredient-details-property/ingredient-details-property';
+import IngredientDetailsProperty from '../ingredient-details-property/ingredient-details-property';
 
 import styles from './ingredient-details.module.css';
 
