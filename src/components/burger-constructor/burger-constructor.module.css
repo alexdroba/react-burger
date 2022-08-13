@@ -58,3 +58,7 @@
   margin-left: 9.5px;
   margin-right: 40px;
 }
+
+.constructorModal {
+  overflow: hidden;
+}
