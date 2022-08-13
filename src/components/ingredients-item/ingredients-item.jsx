@@ -31,7 +31,7 @@ function IngredientsItem(props) {
         </div>
         <Counter count={1} size="default" />
       </div>
-      <div style={{ overflow: 'hidden' }}>
+      <div className={styles.ingredientsItemModal}>
         {modalVisible && (
           <Modal title="Детали ингредиента" onClose={handleCloseModal}>
             <IngredientDetails {...props} />
