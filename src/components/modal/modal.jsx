@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
@@ -40,5 +41,11 @@ function Modal({ title, onClose, children }) {
     modalRoot,
   );
 }
+
+Modal.propTypes = {
+  title: PropTypes.string,
+  onClose: PropTypes.func,
+  children: PropTypes.element,
+};
 
 export default Modal;
