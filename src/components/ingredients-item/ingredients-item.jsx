@@ -33,18 +33,16 @@ function IngredientsItem({ data }) {
         <Counter count={1} size="default" />
       </div>
       <div className={styles.ingredientsItemModal}>
-        {modalVisible && (
-          <Modal title="Детали ингредиента" onClose={handleCloseModal}>
-            <IngredientDetails data={data} />
-          </Modal>
-        )}
+        <Modal title="Детали ингредиента" onClose={handleCloseModal} isOpen={modalVisible}>
+          <IngredientDetails data={data} />
+        </Modal>
       </div>
     </>
   );
 }
 
 IngredientsItem.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object),
+  data: PropTypes.object,
 };
 
 export default IngredientsItem;
