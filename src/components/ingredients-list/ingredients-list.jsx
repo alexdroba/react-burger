@@ -24,6 +24,7 @@ function IngredientsList({ title, data, onOpen }) {
 IngredientsList.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape(ingredientTypes)).isRequired,
   title: PropTypes.string.isRequired,
+  onOpen: PropTypes.func.isRequired,
 };
 
 export default IngredientsList;
