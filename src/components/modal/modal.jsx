@@ -18,11 +18,13 @@ function Modal({ title, onClose, children, isOpen }) {
   };
 
   useEffect(() => {
-    document.addEventListener('keydown', handleKeyPress);
-    return () => {
-      document.removeEventListener('keydown', handleKeyPress);
-    };
-  });
+    if (isOpen) {
+      document.addEventListener('keydown', handleKeyPress);
+      return () => {
+        document.removeEventListener('keydown', handleKeyPress);
+      };
+    }
+  }, [isOpen]);
 
   return ReactDOM.createPortal(
     isOpen && (
