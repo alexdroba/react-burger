@@ -8,7 +8,7 @@ import ModalOverlay from '../modal-overlay/modal-overlay';
 
 import styles from './modal.module.css';
 
-function Modal({ title, onClose, children }) {
+function Modal({ title, onClose, children, isOpen }) {
   const modalRoot = document.getElementById('modal');
 
   const handleKeyPress = (e) => {
@@ -25,22 +25,25 @@ function Modal({ title, onClose, children }) {
   });
 
   return ReactDOM.createPortal(
-    <>
-      <div className={styles.modal}>
-        <div className={styles.modalHeader}>
-          {title && (
-            <div className={styles.modalHeaderTitle}>
-              <span className="text text_type_main-large">{title}</span>
+    isOpen && (
+      <>
+        <div className={styles.modal}>
+          <div className={styles.modalHeader}>
+            {title && (
+              <div className={styles.modalHeaderTitle}>
+                <span className="text text_type_main-large">{title}</span>
+              </div>
+            )}
+            <div className={styles.modalCloseButton} onClick={onClose}>
+              <CloseIcon type="primary" />
             </div>
-          )}
-          <div className={styles.modalCloseButton} onClick={onClose}>
-            <CloseIcon type="primary" />
           </div>
+          {children}
         </div>
-        {children}
-      </div>
-      <ModalOverlay onClose={onClose} />
-    </>,
+        <ModalOverlay onClose={onClose} />
+      </>
+    ),
+
     modalRoot,
   );
 }
