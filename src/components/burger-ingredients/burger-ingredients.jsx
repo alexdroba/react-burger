@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientsList from '../ingredients-list/ingredients-list';
+import Modal from '../modal/modal';
+import IngredientDetails from '../ingredient-details/ingredient-details';
 
 import { ingredientTypes } from '../../utils/types';
 import styles from './burger-ingredients.module.css';
@@ -13,6 +15,18 @@ function BurgerIngredients({ data }) {
   const bun = data.filter((item) => item.type === 'bun');
   const sauce = data.filter((item) => item.type === 'sauce');
   const main = data.filter((item) => item.type === 'main');
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [ingridientsData, setIngridientsData] = useState(null);
+
+  const handleOpenModal = (ingridient) => {
+    setModalVisible(true);
+    setIngridientsData(ingridient);
+  };
+
+  const handleCloseModal = () => {
+    setModalVisible(false);
+  };
 
   return (
     <div>
@@ -29,9 +43,14 @@ function BurgerIngredients({ data }) {
         </Tab>
       </div>
       <div className={styles.ingredientsList}>
-        <IngredientsList title="Булки" data={bun} />
-        <IngredientsList title="Соусы" data={sauce} />
-        <IngredientsList title="Начинки" data={main} />
+        <IngredientsList title="Булки" data={bun} onOpen={handleOpenModal} />
+        <IngredientsList title="Соусы" data={sauce} onOpen={handleOpenModal} />
+        <IngredientsList title="Начинки" data={main} onOpen={handleOpenModal} />
+      </div>
+      <div style={{ overflow: 'hidden' }}>
+        <Modal title="Детали ингредиента" onClose={handleCloseModal} isOpen={modalVisible}>
+          <IngredientDetails data={ingridientsData} />
+        </Modal>
       </div>
     </div>
   );
