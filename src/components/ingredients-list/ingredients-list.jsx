@@ -12,7 +12,7 @@ function IngredientsList({ title, data }) {
       <ul className={styles.ingridientsList}>
         {data.map((item) => (
           <li key={item._id}>
-            <IngredientsItem {...item} />
+            <IngredientsItem data={item} />
           </li>
         ))}
       </ul>
