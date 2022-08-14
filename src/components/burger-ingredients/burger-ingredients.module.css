@@ -9,7 +9,7 @@
 
 .ingredientsList {
   /* Здесь захардкожено, не знаю пока как повешать DOMContentLoaded в функциональных компонентах */
-  height: calc(100vh - 82px - 100px - 96px);
+  height: calc(100vh - 278px);
   overflow-y: auto;
 }
 

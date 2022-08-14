@@ -12,7 +12,7 @@
   margin: 16px 0;
   min-height: 80px;
   /* Здесь захардкожено, не знаю пока как повешать DOMContentLoaded в функциональных компонентах, для того чтобы считать его через JS */
-  max-height: calc(100vh - 82px - 100px - 92px - 96px - 80px - 40px - 64px - 20px);
+  max-height: calc(100vh - 574px);
   overflow-y: auto;
 }
 
@@ -23,10 +23,11 @@
 .constructorItem {
   display: flex;
   align-items: center;
-  padding-right: 16px;
+  padding-right: 8px;
 }
 
 .constructorItem > svg {
+  flex-shrink: 0;
   margin-right: 8px;
 }
 
@@ -57,4 +58,8 @@
   height: 36px;
   margin-left: 9.5px;
   margin-right: 40px;
+}
+
+.constructorModal {
+  overflow: hidden;
 }

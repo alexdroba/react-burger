@@ -1,0 +1,21 @@
+.ingredient {
+  text-align: center;
+}
+
+.ingredientPropertyList {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  list-style: none;
+  padding-bottom: 20px;
+}
+
+.ingredientPropertyItem:first-child {
+  max-width: 120px;
+  width: 100%;
+}
+
+.ingredientPropertyItem:not(:first-child) {
+  max-width: 112px;
+  width: 100%;
+}

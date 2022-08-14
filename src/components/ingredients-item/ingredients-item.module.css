@@ -14,3 +14,7 @@
 .ingredientsItemName {
   min-height: 48px;
 }
+
+.ingredientsItemModal {
+  overflow: hidden;
+}
