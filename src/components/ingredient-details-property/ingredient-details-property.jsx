@@ -11,7 +11,8 @@ function IngredientDetailsProperty({ title, value }) {
 }
 
 IngredientDetailsProperty.propTypes = {
-  title: PropTypes.string,
+  title: PropTypes.string.isRequired,
+  value: PropTypes.number.isRequired,
 };
 
 export default IngredientDetailsProperty;
