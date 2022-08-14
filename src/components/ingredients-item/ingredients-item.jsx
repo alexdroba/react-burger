@@ -42,7 +42,7 @@ function IngredientsItem({ data }) {
 }
 
 IngredientsItem.propTypes = {
-  data: PropTypes.object,
+  data: PropTypes.object.isRequired,
 };
 
 export default IngredientsItem;
