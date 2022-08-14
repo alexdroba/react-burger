@@ -31,7 +31,7 @@ function IngredientDetails({ data }) {
 }
 
 IngredientDetails.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object),
+  data: PropTypes.object,
 };
 
 export default IngredientDetails;
