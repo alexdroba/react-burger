@@ -6,6 +6,7 @@ import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-c
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 
+import { ingredientTypes } from '../../utils/types';
 import styles from './ingredients-item.module.css';
 
 function IngredientsItem({ data }) {
@@ -42,7 +43,7 @@ function IngredientsItem({ data }) {
 }
 
 IngredientsItem.propTypes = {
-  data: PropTypes.object.isRequired,
+  data: PropTypes.shape(ingredientTypes).isRequired,
 };
 
 export default IngredientsItem;
