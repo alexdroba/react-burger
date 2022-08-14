@@ -65,11 +65,9 @@ function BurgerConstructor({ data }) {
         </Button>
       </div>
       <div className={styles.constructorModal}>
-        {modalVisible && (
-          <Modal onClose={handleCloseModal}>
-            <OrderDetails />
-          </Modal>
-        )}
+        <Modal onClose={handleCloseModal} isOpen={modalVisible}>
+          <OrderDetails />
+        </Modal>
       </div>
     </div>
   );
