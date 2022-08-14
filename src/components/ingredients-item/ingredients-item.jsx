@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 
@@ -7,7 +8,7 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 
 import styles from './ingredients-item.module.css';
 
-function IngredientsItem(props) {
+function IngredientsItem({ data }) {
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleOpenModal = () => {
@@ -21,24 +22,29 @@ function IngredientsItem(props) {
   return (
     <>
       <div className={styles.ingredientsItem} onClick={handleOpenModal}>
-        <img src={props.image} alt={props.name} />
+        <img src={data.image} alt={data.name} />
         <div className={styles.ingredientsItemPrice}>
-          <span className="text text_type_digits-default mr-2">{props.price}</span>
+          <span className="text text_type_digits-default mr-2">{data.price}</span>
           <CurrencyIcon type="primary" />
         </div>
         <div className={styles.ingredientsItemName}>
-          <span className="text text_type_main-default">{props.name}</span>
+          <span className="text text_type_main-default">{data.name}</span>
         </div>
         <Counter count={1} size="default" />
       </div>
       <div className={styles.ingredientsItemModal}>
         {modalVisible && (
           <Modal title="Детали ингредиента" onClose={handleCloseModal}>
-            <IngredientDetails {...props} />
+            <IngredientDetails data={data} />
           </Modal>
         )}
       </div>
     </>
   );
 }
+
+IngredientsItem.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object),
+};
+
 export default IngredientsItem;
