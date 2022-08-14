@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import IngredientsItem from '../ingredients-item/ingredients-item';
 
+import { ingredientTypes } from '../../utils/types';
 import styles from './ingredients-list.module.css';
 
 function IngredientsList({ title, data }) {
@@ -21,7 +22,7 @@ function IngredientsList({ title, data }) {
 }
 
 IngredientsList.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  data: PropTypes.arrayOf(PropTypes.shape(ingredientTypes)).isRequired,
   title: PropTypes.string.isRequired,
 };
 
