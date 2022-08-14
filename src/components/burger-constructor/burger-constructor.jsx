@@ -11,6 +11,7 @@ import {
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 
+import { ingredientTypes } from '../../utils/types';
 import styles from './burger-constructor.module.css';
 
 function BurgerConstructor({ data }) {
@@ -74,7 +75,7 @@ function BurgerConstructor({ data }) {
 }
 
 BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  data: PropTypes.arrayOf(PropTypes.shape(ingredientTypes)).isRequired,
 };
 
 export default BurgerConstructor;
