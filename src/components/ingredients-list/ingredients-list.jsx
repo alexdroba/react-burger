@@ -21,8 +21,8 @@ function IngredientsList({ title, data }) {
 }
 
 IngredientsList.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object),
-  title: PropTypes.string,
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  title: PropTypes.string.isRequired,
 };
 
 export default IngredientsList;
