@@ -45,7 +45,6 @@ function Modal({ title, onClose, children, isOpen }) {
         <ModalOverlay onClose={onClose} />
       </>
     ),
-
     modalRoot,
   );
 }
