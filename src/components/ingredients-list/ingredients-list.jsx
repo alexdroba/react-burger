@@ -6,9 +6,9 @@ import IngredientsItem from '../ingredients-item/ingredients-item';
 import { ingredientTypes } from '../../utils/types';
 import styles from './ingredients-list.module.css';
 
-function IngredientsList({ title, data, onOpen }) {
+const IngredientsList = React.forwardRef(({ title, data, onOpen }, ref) => {
   return (
-    <div className={styles.ingridientsListWrapper}>
+    <div className={styles.ingridientsListWrapper} ref={ref}>
       <p className="text text_type_main-medium mb-6">{title}</p>
       <ul className={styles.ingridientsList}>
         {data.map((item) => (
@@ -19,7 +19,7 @@ function IngredientsList({ title, data, onOpen }) {
       </ul>
     </div>
   );
-}
+});
 
 IngredientsList.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape(ingredientTypes)).isRequired,
