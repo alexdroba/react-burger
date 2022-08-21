@@ -4,6 +4,8 @@ import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 
+import { IngredientsContext } from '../../services/ingredientsContext';
+
 import styles from './app.module.css';
 
 function App() {
@@ -36,7 +38,7 @@ function App() {
   const { ingredientsData, isLoading, hasError } = state;
 
   return (
-    <>
+    <IngredientsContext.Provider value={{ ingredientsData }}>
       <AppHeader />
       <div className={styles.container}>
         {isLoading && 'Загрузка...'}
@@ -48,7 +50,7 @@ function App() {
           </>
         )}
       </div>
-    </>
+    </IngredientsContext.Provider>
   );
 }
 
