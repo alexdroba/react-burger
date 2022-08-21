@@ -52,8 +52,10 @@ function BurgerConstructor() {
   const ingredients = data.filter((item) => item.type !== 'bun');
 
   const handleOpenModal = () => {
+    const idIngredients = data.map((item) => item._id);
+    console.log(idIngredients);
     setModalVisible(true);
-    getOrderData(stateOrder, setStateOrder);
+    getOrderData(stateOrder, setStateOrder, idIngredients);
   };
 
   const handleCloseModal = () => {
