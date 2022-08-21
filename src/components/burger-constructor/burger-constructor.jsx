@@ -13,6 +13,7 @@ import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 
 import { getOrderData } from '../../utils/api';
+import { SET_TOTAL_PRICE, RESET_TOTAL_PRICE } from '../../actions/types';
 
 import styles from './burger-constructor.module.css';
 
@@ -20,14 +21,14 @@ const totalPriceInitialState = { sum: 0 };
 
 function reducer(state, action) {
   switch (action.type) {
-    case 'set':
+    case SET_TOTAL_PRICE:
       const totalBunPrice = action.bun.price * 2;
       const totalIngrediensPrice = action.ingredients.reduce(
         (acc, item) => acc + item.price,
         state.sum,
       );
       return { sum: totalBunPrice + totalIngrediensPrice };
-    case 'reset':
+    case RESET_TOTAL_PRICE:
       return totalPriceInitialState;
     default:
       throw new Error(`Wrong type of action: ${action.type}`);
@@ -62,7 +63,7 @@ function BurgerConstructor() {
   };
 
   useEffect(() => {
-    totalPriceDispatcher({ type: 'set', bun, ingredients });
+    totalPriceDispatcher({ type: SET_TOTAL_PRICE, bun, ingredients });
   }, [data]);
 
   const { order } = stateOrder;
