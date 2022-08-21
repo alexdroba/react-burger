@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react';
-import PropTypes from 'prop-types';
 
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientsList from '../ingredients-list/ingredients-list';
@@ -8,19 +7,17 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 
 import { IngredientsContext } from '../../services/ingredientsContext';
 
-import { ingredientTypes } from '../../utils/types';
 import styles from './burger-ingredients.module.css';
 
 function BurgerIngredients() {
-  const [current, setCurrent] = React.useState('one');
+  const [current, setCurrent] = useState('one');
+  const [modalVisible, setModalVisible] = useState(false);
+  const [ingridientsData, setIngridientsData] = useState(null);
   const { ingredientsData: data } = useContext(IngredientsContext);
 
   const bun = data.filter((item) => item.type === 'bun');
   const sauce = data.filter((item) => item.type === 'sauce');
   const main = data.filter((item) => item.type === 'main');
-
-  const [modalVisible, setModalVisible] = useState(false);
-  const [ingridientsData, setIngridientsData] = useState(null);
 
   const handleOpenModal = (ingridient) => {
     setModalVisible(true);
@@ -58,9 +55,5 @@ function BurgerIngredients() {
     </div>
   );
 }
-
-// BurgerIngredients.propTypes = {
-//   data: PropTypes.arrayOf(PropTypes.shape(ingredientTypes)).isRequired,
-// };
 
 export default BurgerIngredients;
