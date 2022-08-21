@@ -33,6 +33,8 @@ function BurgerIngredients() {
   };
 
   useEffect(() => {
+    //Вопрос ревьюеру - Не нравится мне код, а если категорий будет не 3, а скажем 100...
+    //Как можно зарефакторить? Перенести проверку в infredients-list?
     if (currentCategory === 'bun') {
       categoryBuns.current.scrollIntoView({ behavior: 'smooth' });
     } else if (currentCategory === 'sauce') {
@@ -40,8 +42,6 @@ function BurgerIngredients() {
     } else {
       categoryMain.current.scrollIntoView({ behavior: 'smooth' });
     }
-    console.log(currentCategory);
-    console.log(categorySauces.current);
   }, [currentCategory]);
 
   return (
