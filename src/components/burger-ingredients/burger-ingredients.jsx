@@ -12,7 +12,7 @@ import styles from './burger-ingredients.module.css';
 function BurgerIngredients() {
   const [current, setCurrent] = useState('one');
   const [modalVisible, setModalVisible] = useState(false);
-  const [ingridientsData, setIngridientsData] = useState(null);
+  const [targetIngredient, setTargetIngredient] = useState(null);
   const { ingredientsData: data } = useContext(IngredientsContext);
 
   const bun = data.filter((item) => item.type === 'bun');
@@ -21,7 +21,7 @@ function BurgerIngredients() {
 
   const handleOpenModal = (ingridient) => {
     setModalVisible(true);
-    setIngridientsData(ingridient);
+    setTargetIngredient(ingridient);
   };
 
   const handleCloseModal = () => {
@@ -49,7 +49,7 @@ function BurgerIngredients() {
       </div>
       <div style={{ overflow: 'hidden' }}>
         <Modal title="Детали ингредиента" onClose={handleCloseModal} isOpen={modalVisible}>
-          <IngredientDetails data={ingridientsData} />
+          <IngredientDetails data={targetIngredient} />
         </Modal>
       </div>
     </div>
