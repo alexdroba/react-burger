@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useReducer } from 'react';
+import React, { useState, useContext, useEffect, useReducer, useMemo } from 'react';
 
 import {
   ConstructorElement,
@@ -48,8 +48,8 @@ function BurgerConstructor() {
     undefined,
   );
 
-  const bun = data.filter((item) => item.type === 'bun')[0];
-  const ingredients = data.filter((item) => item.type !== 'bun');
+  const bun = useMemo(() => data.filter((item) => item.type === 'bun')[0], data);
+  const ingredients = useMemo(() => data.filter((item) => item.type !== 'bun'), data);
 
   const handleOpenModal = () => {
     const idIngredients = data.map((item) => item._id);
