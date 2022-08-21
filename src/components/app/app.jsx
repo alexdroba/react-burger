@@ -46,7 +46,7 @@ function App() {
         {!isLoading && !hasError && ingredientsData.length && (
           <>
             <BurgerIngredients data={ingredientsData} />
-            <BurgerConstructor data={ingredientsData} />
+            <BurgerConstructor />
           </>
         )}
       </div>
