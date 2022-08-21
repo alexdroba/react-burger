@@ -12,6 +12,8 @@ import { IngredientsContext } from '../../services/ingredientsContext';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 
+import { getOrderData } from '../../utils/api';
+
 import styles from './burger-constructor.module.css';
 
 const totalPriceInitialState = { sum: 0 };
@@ -34,6 +36,11 @@ function reducer(state, action) {
 
 function BurgerConstructor() {
   const [modalVisible, setModalVisible] = useState(false);
+  const [stateOrder, setStateOrder] = useState({
+    isLoading: false,
+    hasError: false,
+    order: 0,
+  });
   const { ingredientsData: data } = useContext(IngredientsContext);
   const [totalPriceState, totalPriceDispatcher] = useReducer(
     reducer,
@@ -46,6 +53,7 @@ function BurgerConstructor() {
 
   const handleOpenModal = () => {
     setModalVisible(true);
+    getOrderData(stateOrder, setStateOrder);
   };
 
   const handleCloseModal = () => {
@@ -55,6 +63,8 @@ function BurgerConstructor() {
   useEffect(() => {
     totalPriceDispatcher({ type: 'set', bun, ingredients });
   }, [data]);
+
+  const { order } = stateOrder;
 
   return (
     <div className={styles.constructorWrapper}>
@@ -95,7 +105,7 @@ function BurgerConstructor() {
       </div>
       <div className={styles.constructorModal}>
         <Modal onClose={handleCloseModal} isOpen={modalVisible}>
-          <OrderDetails />
+          <OrderDetails orderNumber={order} />
         </Modal>
       </div>
     </div>
