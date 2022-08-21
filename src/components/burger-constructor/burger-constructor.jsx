@@ -53,7 +53,6 @@ function BurgerConstructor() {
 
   const handleOpenModal = () => {
     const idIngredients = data.map((item) => item._id);
-    console.log(idIngredients);
     setModalVisible(true);
     getOrderData(stateOrder, setStateOrder, idIngredients);
   };
