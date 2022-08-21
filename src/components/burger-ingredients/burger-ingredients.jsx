@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useMemo } from 'react';
 
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientsList from '../ingredients-list/ingredients-list';
@@ -15,9 +15,9 @@ function BurgerIngredients() {
   const [targetIngredient, setTargetIngredient] = useState(null);
   const { ingredientsData: data } = useContext(IngredientsContext);
 
-  const bun = data.filter((item) => item.type === 'bun');
-  const sauce = data.filter((item) => item.type === 'sauce');
-  const main = data.filter((item) => item.type === 'main');
+  const bun = useMemo(() => data.filter((item) => item.type === 'bun'), data);
+  const sauce = useMemo(() => data.filter((item) => item.type === 'sauce'), data);
+  const main = useMemo(() => data.filter((item) => item.type === 'main'), data);
 
   const handleOpenModal = (ingridient) => {
     setModalVisible(true);
