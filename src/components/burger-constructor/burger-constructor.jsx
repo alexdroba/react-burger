@@ -1,5 +1,4 @@
-import React, { useState, useContext } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useContext, useEffect } from 'react';
 
 import {
   ConstructorElement,
@@ -13,11 +12,11 @@ import { IngredientsContext } from '../../services/ingredientsContext';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 
-import { ingredientTypes } from '../../utils/types';
 import styles from './burger-constructor.module.css';
 
 function BurgerConstructor() {
   const [modalVisible, setModalVisible] = useState(false);
+  const [totalPrice, setTotalPrice] = useState(0);
   const { ingredientsData: data } = useContext(IngredientsContext);
 
   const bun = data.filter((item) => item.type === 'bun')[0];
@@ -30,6 +29,12 @@ function BurgerConstructor() {
   const handleCloseModal = () => {
     setModalVisible(false);
   };
+
+  useEffect(() => {
+    const totalBun = bun.price * 2;
+    const totalIngrediens = ingredients.reduce((acc, item) => acc + item.price, totalPrice);
+    setTotalPrice(totalBun + totalIngrediens);
+  }, [data]);
 
   return (
     <div className={styles.constructorWrapper}>
@@ -62,7 +67,7 @@ function BurgerConstructor() {
         </div>
       </div>
       <div className={styles.constructorTotal}>
-        <p className="text text_type_digits-medium">610</p>
+        <p className="text text_type_digits-medium">{totalPrice}</p>
         <CurrencyIcon type="primary" />
         <Button type="primary" size="large" onClick={handleOpenModal}>
           Оформить заказ
