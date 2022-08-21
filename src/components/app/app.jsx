@@ -30,7 +30,7 @@ function App() {
         {hasError && 'Произошла ошибка!'}
         {!isLoading && !hasError && ingredientsData.length && (
           <>
-            <BurgerIngredients data={ingredientsData} />
+            <BurgerIngredients />
             <BurgerConstructor />
           </>
         )}
