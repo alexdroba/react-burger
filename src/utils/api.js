@@ -14,14 +14,13 @@ export const getIngredientsData = (state, setState) => {
     });
 };
 
-export const getOrderData = (state, setState) => {
+export const getOrderData = (state, setState, idIngredients) => {
   return fetch(API_URL_ORDERS, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json; charset=utf-8' },
-    body: JSON.stringify({ ingredients: ['60d3b41abdacab0026a733c6'] }),
+    body: JSON.stringify({ ingredients: idIngredients }),
   })
     .then((res) => {
-      console.log(res);
       if (res.ok) {
         return res.json();
       }
