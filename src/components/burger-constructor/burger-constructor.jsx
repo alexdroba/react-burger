@@ -105,11 +105,9 @@ function BurgerConstructor() {
           Оформить заказ
         </Button>
       </div>
-      <div className={styles.constructorModal}>
-        <Modal onClose={handleCloseModal} isOpen={modalVisible}>
-          <OrderDetails orderNumber={order} />
-        </Modal>
-      </div>
+      <Modal onClose={handleCloseModal} isOpen={modalVisible}>
+        <OrderDetails orderNumber={order} />
+      </Modal>
     </div>
   );
 }
