@@ -19,9 +19,12 @@ const totalPriceInitialState = { sum: 0 };
 function reducer(state, action) {
   switch (action.type) {
     case 'set':
-      const totalBun = action.bun.price * 2;
-      const totalIngrediens = action.ingredients.reduce((acc, item) => acc + item.price, state.sum);
-      return { sum: totalBun + totalIngrediens };
+      const totalBunPrice = action.bun.price * 2;
+      const totalIngrediensPrice = action.ingredients.reduce(
+        (acc, item) => acc + item.price,
+        state.sum,
+      );
+      return { sum: totalBunPrice + totalIngrediensPrice };
     case 'reset':
       return totalPriceInitialState;
     default:
