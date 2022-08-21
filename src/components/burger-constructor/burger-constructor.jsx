@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import {
@@ -8,17 +8,20 @@ import {
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
+import { IngredientsContext } from '../../services/ingredientsContext';
+
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 
 import { ingredientTypes } from '../../utils/types';
 import styles from './burger-constructor.module.css';
 
-function BurgerConstructor({ data }) {
+function BurgerConstructor() {
+  const [modalVisible, setModalVisible] = useState(false);
+  const { ingredientsData: data } = useContext(IngredientsContext);
+
   const bun = data.filter((item) => item.type === 'bun')[0];
   const ingredients = data.filter((item) => item.type !== 'bun');
-
-  const [modalVisible, setModalVisible] = useState(false);
 
   const handleOpenModal = () => {
     setModalVisible(true);
@@ -73,9 +76,5 @@ function BurgerConstructor({ data }) {
     </div>
   );
 }
-
-BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape(ingredientTypes)).isRequired,
-};
 
 export default BurgerConstructor;
