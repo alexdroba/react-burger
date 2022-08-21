@@ -47,7 +47,7 @@ function BurgerIngredients() {
         <IngredientsList title="Соусы" data={sauce} onOpen={handleOpenModal} />
         <IngredientsList title="Начинки" data={main} onOpen={handleOpenModal} />
       </div>
-      <div style={{ overflow: 'hidden' }}>
+      <div className={styles.ingredientsModal}>
         <Modal title="Детали ингредиента" onClose={handleCloseModal} isOpen={modalVisible}>
           <IngredientDetails data={targetIngredient} />
         </Modal>
