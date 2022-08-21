@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useReducer } from 'react';
 
 import {
   ConstructorElement,
@@ -14,10 +14,29 @@ import OrderDetails from '../order-details/order-details';
 
 import styles from './burger-constructor.module.css';
 
+const totalPriceInitialState = { sum: 0 };
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'set':
+      const totalBun = action.bun.price * 2;
+      const totalIngrediens = action.ingredients.reduce((acc, item) => acc + item.price, state.sum);
+      return { sum: totalBun + totalIngrediens };
+    case 'reset':
+      return totalPriceInitialState;
+    default:
+      throw new Error(`Wrong type of action: ${action.type}`);
+  }
+}
+
 function BurgerConstructor() {
   const [modalVisible, setModalVisible] = useState(false);
-  const [totalPrice, setTotalPrice] = useState(0);
   const { ingredientsData: data } = useContext(IngredientsContext);
+  const [totalPriceState, totalPriceDispatcher] = useReducer(
+    reducer,
+    totalPriceInitialState,
+    undefined,
+  );
 
   const bun = data.filter((item) => item.type === 'bun')[0];
   const ingredients = data.filter((item) => item.type !== 'bun');
@@ -31,9 +50,7 @@ function BurgerConstructor() {
   };
 
   useEffect(() => {
-    const totalBun = bun.price * 2;
-    const totalIngrediens = ingredients.reduce((acc, item) => acc + item.price, totalPrice);
-    setTotalPrice(totalBun + totalIngrediens);
+    totalPriceDispatcher({ type: 'set', bun, ingredients });
   }, [data]);
 
   return (
@@ -67,7 +84,7 @@ function BurgerConstructor() {
         </div>
       </div>
       <div className={styles.constructorTotal}>
-        <p className="text text_type_digits-medium">{totalPrice}</p>
+        <p className="text text_type_digits-medium">{totalPriceState.sum}</p>
         <CurrencyIcon type="primary" />
         <Button type="primary" size="large" onClick={handleOpenModal}>
           Оформить заказ
