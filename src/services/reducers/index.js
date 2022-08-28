@@ -6,4 +6,14 @@ const ingredientsInitialState = {
   ingredientsData: [],
 };
 
-const rootRedicer = combineReducers({});
+const ingredientsReducer = (state = ingredientsInitialState, action) => {
+  switch (action.type) {
+    default: {
+      return state;
+    }
+  }
+};
+
+export const rootReducer = combineReducers({
+  ingredients: ingredientsReducer,
+});
