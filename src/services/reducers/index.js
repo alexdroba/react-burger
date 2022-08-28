@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { v1 as random } from 'uuid';
 
 import {
   GET_INGREDIENTS_REQUEST,
@@ -9,6 +10,11 @@ import {
   GET_ORDER_REQUEST,
   GET_ORDER_SUCCESS,
   GET_ORDER_FAILED,
+  GET_TOTAL_PRICE,
+  ADD_INGREDIENT_CONSTRUCTOR,
+  DELETE_INGREDIENT_CONSTRUCTOR,
+  SWITCH_BUNS_INGREDIENT_CONSTRUCTOR,
+  UPDATE_INGREDIENT_CONSTRUCTOR,
 } from '../actions/index';
 
 const ingredientsInitialState = {
@@ -25,6 +31,12 @@ const orderInitialState = {
   isLoading: false,
   hasError: false,
   order: {},
+};
+
+const totalPriceInitialState = { sum: 0 };
+
+const constructorInitialState = {
+  ingredients: [],
 };
 
 const ingredientsReducer = (state = ingredientsInitialState, action) => {
@@ -100,8 +112,52 @@ const orderReducer = (state = orderInitialState, action) => {
   }
 };
 
+const totalPriceReducer = (state = totalPriceInitialState, action) => {
+  switch (action.type) {
+    case GET_TOTAL_PRICE:
+      const total = action.ingredients.reduce((acc, item) => acc + item.price, 0);
+      return {
+        ...state,
+        sum: total,
+      };
+    default: {
+      return state;
+    }
+  }
+};
+
+const constructorReducer = (state = constructorInitialState, action) => {
+  switch (action.type) {
+    case ADD_INGREDIENT_CONSTRUCTOR:
+      return {
+        ...state,
+        ingredients: [...state.ingredients, { ...action.data, _dndid: random() }],
+      };
+    case DELETE_INGREDIENT_CONSTRUCTOR:
+      return {
+        ...state,
+        ingredients: state.ingredients.filter((item) => item._dndid !== action.data._dndid),
+      };
+    case SWITCH_BUNS_INGREDIENT_CONSTRUCTOR:
+      return {
+        ...state,
+        ingredients: [...state.ingredients.filter((item) => item.type !== 'bun'), action.data],
+      };
+    case UPDATE_INGREDIENT_CONSTRUCTOR:
+      return {
+        ...state,
+        ingredients: [...action.data],
+      };
+    default: {
+      return state;
+    }
+  }
+};
+
 export const rootReducer = combineReducers({
   ingredients: ingredientsReducer,
   targetIngredient: targetIngredientReducer,
   order: orderReducer,
+  totalPrice: totalPriceReducer,
+  constructorIngredients: constructorReducer,
 });
