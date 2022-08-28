@@ -24,6 +24,7 @@ function BurgerIngredients() {
   const categoryBuns = useRef(null);
   const categorySauces = useRef(null);
   const categoryMain = useRef(null);
+  const listIngredients = useRef(null);
 
   const bun = useMemo(() => data.filter((item) => item.type === 'bun'), [data]);
   const sauce = useMemo(() => data.filter((item) => item.type === 'sauce'), [data]);
@@ -39,15 +40,25 @@ function BurgerIngredients() {
     dispatch(deleteTargetIngredient());
   };
 
-  // useEffect(() => {
-  //   if (currentCategory === 'bun') {
-  //     categoryBuns.current.scrollIntoView({ behavior: 'smooth' });
-  //   } else if (currentCategory === 'sauce') {
-  //     categorySauces.current.scrollIntoView({ behavior: 'smooth' });
-  //   } else {
-  //     categoryMain.current.scrollIntoView({ behavior: 'smooth' });
-  //   }
-  // }, [currentCategory]);
+  const handleClickTab = (tab) => {
+    tab.current.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const handleListScroll = () => {
+    const listTop = listIngredients.current.offsetTop;
+    const bunsTop = categoryBuns.current.getBoundingClientRect().top;
+    const saucesTop = categorySauces.current.getBoundingClientRect().top;
+    const mainTop = categoryMain.current.getBoundingClientRect().top;
+    if (bunsTop - listTop <= 100) {
+      setCurrentCategory('bun');
+    }
+    if (saucesTop - listTop <= 100) {
+      setCurrentCategory('sauce');
+    }
+    if (mainTop - listTop <= 100) {
+      setCurrentCategory('main');
+    }
+  };
 
   useEffect(() => {
     dispatch(getIngredientsData());
@@ -61,17 +72,23 @@ function BurgerIngredients() {
         <>
           <p className="text text_type_main-large mt-10 mb-5">Соберите бургер</p>
           <div className={styles.tabs}>
-            <Tab value="bun" active={currentCategory === 'bun'} onClick={setCurrentCategory}>
-              Булки
-            </Tab>
-            <Tab value="sauce" active={currentCategory === 'sauce'} onClick={setCurrentCategory}>
-              Соусы
-            </Tab>
-            <Tab value="main" active={currentCategory === 'main'} onClick={setCurrentCategory}>
-              Начинки
-            </Tab>
+            <div onClick={() => handleClickTab(categoryBuns)}>
+              <Tab value="bun" active={currentCategory === 'bun'} onClick={setCurrentCategory}>
+                Булки
+              </Tab>
+            </div>
+            <div onClick={() => handleClickTab(categorySauces)}>
+              <Tab value="sauce" active={currentCategory === 'sauce'} onClick={setCurrentCategory}>
+                Соусы
+              </Tab>
+            </div>
+            <div onClick={() => handleClickTab(categoryMain)}>
+              <Tab value="main" active={currentCategory === 'main'} onClick={setCurrentCategory}>
+                Начинки
+              </Tab>
+            </div>
           </div>
-          <div className={styles.ingredientsList}>
+          <div className={styles.ingredientsList} onScroll={handleListScroll} ref={listIngredients}>
             <IngredientsList title="Булки" data={bun} onOpen={handleOpenModal} ref={categoryBuns} />
             <IngredientsList
               title="Соусы"
