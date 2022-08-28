@@ -1,5 +1,7 @@
 import React, { useState, useContext, useEffect, useReducer, useMemo } from 'react';
 
+import { useSelector, useDispatch } from 'react-redux';
+
 import {
   ConstructorElement,
   DragIcon,
@@ -12,8 +14,9 @@ import { IngredientsContext } from '../../services/ingredientsContext';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 
-import { getOrderData } from '../../utils/api';
 import { SET_TOTAL_PRICE, RESET_TOTAL_PRICE } from '../../actions/types';
+
+import { getOrderData } from '../../services/actions/index';
 
 import styles from './burger-constructor.module.css';
 
@@ -37,11 +40,7 @@ function reducer(state, action) {
 
 function BurgerConstructor() {
   const [modalVisible, setModalVisible] = useState(false);
-  const [stateOrder, setStateOrder] = useState({
-    isLoading: false,
-    hasError: false,
-    order: 0,
-  });
+
   const { ingredientsData: data } = useContext(IngredientsContext);
   const [totalPriceState, totalPriceDispatcher] = useReducer(
     reducer,
@@ -49,13 +48,15 @@ function BurgerConstructor() {
     undefined,
   );
 
-  const bun = useMemo(() => data.filter((item) => item.type === 'bun')[0], data);
-  const ingredients = useMemo(() => data.filter((item) => item.type !== 'bun'), data);
+  const dispatch = useDispatch();
+
+  const bun = useMemo(() => data.filter((item) => item.type === 'bun')[0], [data]);
+  const ingredients = useMemo(() => data.filter((item) => item.type !== 'bun'), [data]);
 
   const handleOpenModal = () => {
     const idIngredients = data.map((item) => item._id);
     setModalVisible(true);
-    getOrderData(stateOrder, setStateOrder, idIngredients);
+    dispatch(getOrderData(idIngredients));
   };
 
   const handleCloseModal = () => {
@@ -65,8 +66,6 @@ function BurgerConstructor() {
   useEffect(() => {
     totalPriceDispatcher({ type: SET_TOTAL_PRICE, bun, ingredients });
   }, [data]);
-
-  const { order } = stateOrder;
 
   return (
     <div className={styles.constructorWrapper}>
@@ -106,7 +105,7 @@ function BurgerConstructor() {
         </Button>
       </div>
       <Modal onClose={handleCloseModal} isOpen={modalVisible}>
-        <OrderDetails orderNumber={order} />
+        <OrderDetails />
       </Modal>
     </div>
   );
