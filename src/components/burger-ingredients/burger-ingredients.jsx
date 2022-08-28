@@ -1,4 +1,5 @@
 import React, { useState, useContext, useMemo, useRef, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientsList from '../ingredients-list/ingredients-list';
@@ -7,6 +8,8 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 
 import { IngredientsContext } from '../../services/ingredientsContext';
 
+import { getIngredientsData } from '../../services/actions/index';
+
 import styles from './burger-ingredients.module.css';
 
 function BurgerIngredients() {
@@ -14,6 +17,14 @@ function BurgerIngredients() {
   const [modalVisible, setModalVisible] = useState(false);
   const [targetIngredient, setTargetIngredient] = useState(null);
   const { ingredientsData: data } = useContext(IngredientsContext);
+
+  const {
+    isLoading,
+    hasError,
+    ingredientsData: dataNew,
+  } = useSelector((state) => state.ingredients);
+  console.log(dataNew);
+  const dispatch = useDispatch();
 
   const categoryBuns = useRef(null);
   const categorySauces = useRef(null);
@@ -41,6 +52,10 @@ function BurgerIngredients() {
       categoryMain.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [currentCategory]);
+
+  useEffect(() => {
+    dispatch(getIngredientsData());
+  }, [dispatch]);
 
   return (
     <div>
