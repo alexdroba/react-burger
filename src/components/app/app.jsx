@@ -4,38 +4,25 @@ import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+
 import { IngredientsContext } from '../../services/ingredientsContext';
 import { getIngredientsData } from '../../utils/api';
 
 import styles from './app.module.css';
 
 function App() {
-  const [state, setState] = useState({
-    isLoading: false,
-    hasError: false,
-    ingredientsData: [],
-  });
-
-  useEffect(() => {
-    getIngredientsData(state, setState);
-  }, []);
-
-  const { ingredientsData, isLoading, hasError } = state;
-
   return (
-    <IngredientsContext.Provider value={{ ingredientsData }}>
+    <>
       <AppHeader />
       <div className={styles.container}>
-        {isLoading && 'Загрузка...'}
-        {hasError && 'Произошла ошибка!'}
-        {!isLoading && !hasError && ingredientsData.length && (
-          <>
-            <BurgerIngredients />
-            <BurgerConstructor />
-          </>
-        )}
+        <DndProvider backend={HTML5Backend}>
+          <BurgerIngredients />
+          <BurgerConstructor />
+        </DndProvider>
       </div>
-    </IngredientsContext.Provider>
+    </>
   );
 }
 
