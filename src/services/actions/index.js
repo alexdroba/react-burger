@@ -11,6 +11,13 @@ export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST';
 export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS';
 export const GET_ORDER_FAILED = 'GET_ORDER_FAILED';
 
+export const GET_TOTAL_PRICE = 'GET_TOTAL_PRICE';
+
+export const ADD_INGREDIENT_CONSTRUCTOR = 'ADD_INGREDIENT_CONSTRUCTOR';
+export const DELETE_INGREDIENT_CONSTRUCTOR = 'DELETE_INGREDIENT_CONSTRUCTOR';
+export const SWITCH_BUNS_INGREDIENT_CONSTRUCTOR = 'SWITCH_BUNS_INGREDIENT_CONSTRUCTOR';
+export const UPDATE_INGREDIENT_CONSTRUCTOR = 'UPDATE_INGREDIENT_CONSTRUCTOR';
+
 const checkResponse = (res) => (res.ok ? res.json() : Promise.reject(`Ошибка ${res.status}`));
 
 export const getIngredientsData = () => {
@@ -69,5 +76,40 @@ export const getOrderData = (idIngredients) => {
           type: GET_ORDER_FAILED,
         });
       });
+  };
+};
+
+export const getTotalPrice = (ingredients) => {
+  return {
+    type: GET_TOTAL_PRICE,
+    ingredients,
+  };
+};
+
+export const addIngredientConstructor = (data) => {
+  return {
+    type: ADD_INGREDIENT_CONSTRUCTOR,
+    data,
+  };
+};
+
+export const deleteIngredientConstructor = (data) => {
+  return {
+    type: DELETE_INGREDIENT_CONSTRUCTOR,
+    data,
+  };
+};
+
+export const switchBunsIngredientConstructor = (data) => {
+  return {
+    type: SWITCH_BUNS_INGREDIENT_CONSTRUCTOR,
+    data,
+  };
+};
+
+export const updateIngredientConstructor = (data) => {
+  return {
+    type: UPDATE_INGREDIENT_CONSTRUCTOR,
+    data,
   };
 };
