@@ -1,14 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import orderIcon from '../../images/order-icon.svg';
 
 import styles from './order-details.module.css';
 
-function OrderDetails() {
+function OrderDetails({ orderNumber }) {
   return (
     <div className={styles.order}>
       <div className={styles.orderNumber}>
-        <span className="text text_type_digits-large">034536</span>
+        <span className="text text_type_digits-large">{orderNumber}</span>
       </div>
       <p className="text text_type_main-medium mb-15">идентификатор заказа</p>
       <img src={orderIcon} alt="Зеленая галочка - Ваш заказ начали готовить" />
@@ -19,5 +20,9 @@ function OrderDetails() {
     </div>
   );
 }
+
+OrderDetails.propTypes = {
+  orderNumber: PropTypes.number.isRequired,
+};
 
 export default OrderDetails;

@@ -11,13 +11,13 @@ import styles from './modal.module.css';
 function Modal({ title, onClose, children, isOpen }) {
   const modalRoot = document.getElementById('modal');
 
-  const handleKeyPress = (e) => {
-    if (e.key === 'Escape') {
-      onClose();
-    }
-  };
-
   useEffect(() => {
+    const handleKeyPress = (e) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+
     if (isOpen) {
       document.addEventListener('keydown', handleKeyPress);
       return () => {
@@ -45,7 +45,6 @@ function Modal({ title, onClose, children, isOpen }) {
         <ModalOverlay onClose={onClose} />
       </>
     ),
-
     modalRoot,
   );
 }
