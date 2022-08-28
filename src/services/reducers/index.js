@@ -6,6 +6,9 @@ import {
   GET_INGREDIENTS_FAILED,
   GET_TARGET_INGREDIENT,
   DELETE_TARGET_INGREDIENT,
+  GET_ORDER_REQUEST,
+  GET_ORDER_SUCCESS,
+  GET_ORDER_FAILED,
 } from '../actions/index';
 
 const ingredientsInitialState = {
@@ -16,6 +19,12 @@ const ingredientsInitialState = {
 
 const targetIngredientInitialState = {
   ingredient: {},
+};
+
+const orderInitialState = {
+  isLoading: false,
+  hasError: false,
+  order: {},
 };
 
 const ingredientsReducer = (state = ingredientsInitialState, action) => {
@@ -63,7 +72,36 @@ const targetIngredientReducer = (state = targetIngredientInitialState, action) =
   }
 };
 
+const orderReducer = (state = orderInitialState, action) => {
+  switch (action.type) {
+    case GET_ORDER_REQUEST: {
+      return {
+        ...state,
+        isLoading: true,
+      };
+    }
+    case GET_ORDER_SUCCESS: {
+      return {
+        ...state,
+        order: action.order,
+        isLoading: false,
+      };
+    }
+    case GET_ORDER_FAILED: {
+      return {
+        ...state,
+        hasError: true,
+        isLoading: false,
+      };
+    }
+    default: {
+      return state;
+    }
+  }
+};
+
 export const rootReducer = combineReducers({
   ingredients: ingredientsReducer,
   targetIngredient: targetIngredientReducer,
+  order: orderReducer,
 });
