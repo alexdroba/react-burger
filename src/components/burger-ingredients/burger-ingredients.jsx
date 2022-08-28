@@ -6,14 +6,17 @@ import IngredientsList from '../ingredients-list/ingredients-list';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 
-import { getIngredientsData } from '../../services/actions/index';
+import {
+  getIngredientsData,
+  getTargetIngredient,
+  deleteTargetIngredient,
+} from '../../services/actions/index';
 
 import styles from './burger-ingredients.module.css';
 
 function BurgerIngredients() {
   const [currentCategory, setCurrentCategory] = useState('bun');
   const [modalVisible, setModalVisible] = useState(false);
-  const [targetIngredient, setTargetIngredient] = useState(null);
 
   const { isLoading, hasError, ingredientsData: data } = useSelector((state) => state.ingredients);
   const dispatch = useDispatch();
@@ -28,11 +31,12 @@ function BurgerIngredients() {
 
   const handleOpenModal = (ingridient) => {
     setModalVisible(true);
-    setTargetIngredient(ingridient);
+    dispatch(getTargetIngredient(ingridient));
   };
 
   const handleCloseModal = () => {
     setModalVisible(false);
+    dispatch(deleteTargetIngredient());
   };
 
   // useEffect(() => {
@@ -83,7 +87,7 @@ function BurgerIngredients() {
             />
           </div>
           <Modal title="Детали ингредиента" onClose={handleCloseModal} isOpen={modalVisible}>
-            <IngredientDetails data={targetIngredient} />
+            <IngredientDetails />
           </Modal>
         </>
       )}
