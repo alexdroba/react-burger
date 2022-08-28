@@ -16,10 +16,6 @@
   overflow-y: auto;
 }
 
-.constructor > div:not(:last-child) {
-  margin-bottom: 16px;
-}
-
 .constructorItem {
   display: flex;
   align-items: center;

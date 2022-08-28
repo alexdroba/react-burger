@@ -1,53 +1,32 @@
-import React, { useState, useContext, useEffect, useReducer, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
+import { useDrop } from 'react-dnd';
 
 import {
   ConstructorElement,
-  DragIcon,
   CurrencyIcon,
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import { IngredientsContext } from '../../services/ingredientsContext';
-
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
+import ConstructorIngredientsList from '../constructor-ingredients-list/constructor-ingredients-list';
 
-import { SET_TOTAL_PRICE, RESET_TOTAL_PRICE } from '../../actions/types';
-
-import { getOrderData } from '../../services/actions/index';
+import {
+  getOrderData,
+  addIngredientConstructor,
+  switchBunsIngredientConstructor,
+  getTotalPrice,
+} from '../../services/actions/index';
 
 import styles from './burger-constructor.module.css';
-
-const totalPriceInitialState = { sum: 0 };
-
-function reducer(state, action) {
-  switch (action.type) {
-    case SET_TOTAL_PRICE:
-      const totalBunPrice = action.bun.price * 2;
-      const totalIngrediensPrice = action.ingredients.reduce(
-        (acc, item) => acc + item.price,
-        state.sum,
-      );
-      return { sum: totalBunPrice + totalIngrediensPrice };
-    case RESET_TOTAL_PRICE:
-      return totalPriceInitialState;
-    default:
-      throw new Error(`Wrong type of action: ${action.type}`);
-  }
-}
 
 function BurgerConstructor() {
   const [modalVisible, setModalVisible] = useState(false);
 
-  const { ingredientsData: data } = useContext(IngredientsContext);
-  const [totalPriceState, totalPriceDispatcher] = useReducer(
-    reducer,
-    totalPriceInitialState,
-    undefined,
-  );
-
+  const { ingredients: data } = useSelector((state) => state.constructorIngredients);
+  const { sum } = useSelector((state) => state.totalPrice);
   const dispatch = useDispatch();
 
   const bun = useMemo(() => data.filter((item) => item.type === 'bun')[0], [data]);
@@ -63,50 +42,65 @@ function BurgerConstructor() {
     setModalVisible(false);
   };
 
+  const [{ isHover }, dropTargerRef] = useDrop({
+    accept: 'ingredient',
+    collect: (monitor) => ({
+      isHover: monitor.isOver(),
+    }),
+    drop(data) {
+      if (data.type === 'bun') {
+        dispatch(switchBunsIngredientConstructor(data));
+      } else {
+        dispatch(addIngredientConstructor(data));
+      }
+    },
+  });
+
   useEffect(() => {
-    totalPriceDispatcher({ type: SET_TOTAL_PRICE, bun, ingredients });
-  }, [data]);
+    dispatch(getTotalPrice(data));
+  }, [data, dispatch]);
 
   return (
-    <div className={styles.constructorWrapper}>
-      <div className="mb-10">
-        <div className={styles.constructorFirstItem}>
-          <ConstructorElement
-            type="top"
-            isLocked={true}
-            text={bun.name + ' (верх)'}
-            price={bun.price}
-            thumbnail={bun.image}
-          />
-        </div>
-        <ul className={styles.constructor}>
-          {ingredients.map((item) => (
-            <li className={styles.constructorItem} key={item._id}>
-              <DragIcon type="primary" />
-              <ConstructorElement text={item.name} price={item.price} thumbnail={item.image} />
-            </li>
-          ))}
-        </ul>
-        <div className={styles.constructorLastItem}>
-          <ConstructorElement
-            type="bottom"
-            isLocked={true}
-            text={bun.name + ' (низ)'}
-            price={bun.price}
-            thumbnail={bun.image}
-          />
-        </div>
-      </div>
-      <div className={styles.constructorTotal}>
-        <p className="text text_type_digits-medium">{totalPriceState.sum}</p>
-        <CurrencyIcon type="primary" />
-        <Button type="primary" size="large" onClick={handleOpenModal}>
-          Оформить заказ
-        </Button>
-      </div>
-      <Modal onClose={handleCloseModal} isOpen={modalVisible}>
-        <OrderDetails />
-      </Modal>
+    <div className={styles.constructorWrapper} ref={dropTargerRef}>
+      {data.length && bun ? (
+        <>
+          <div className="mb-10">
+            <div className={styles.constructorFirstItem}>
+              <ConstructorElement
+                type="top"
+                isLocked={true}
+                text={bun.name + ' (верх)'}
+                price={bun.price}
+                thumbnail={bun.image}
+              />
+            </div>
+            <div className={styles.constructor}>
+              <ConstructorIngredientsList data={ingredients} />
+            </div>
+            <div className={styles.constructorLastItem}>
+              <ConstructorElement
+                type="bottom"
+                isLocked={true}
+                text={bun.name + ' (низ)'}
+                price={bun.price}
+                thumbnail={bun.image}
+              />
+            </div>
+          </div>
+          <div className={styles.constructorTotal}>
+            <p className="text text_type_digits-medium">{sum}</p>
+            <CurrencyIcon type="primary" />
+            <Button type="primary" size="large" onClick={handleOpenModal}>
+              Оформить заказ
+            </Button>
+          </div>
+          <Modal onClose={handleCloseModal} isOpen={modalVisible}>
+            <OrderDetails />
+          </Modal>
+        </>
+      ) : (
+        <p className="text text_type_main-medium">Сначала выберите булку</p>
+      )}
     </div>
   );
 }
