@@ -29,18 +29,9 @@ function ConstructorIngredientsList({ data }) {
     [ingredients, dispatch],
   );
 
-  return (
-    <>
-      {data.map((item, index) => (
-        <ConstructorIngredientsItem
-          key={item._dndid}
-          index={index}
-          item={item}
-          moveCard={moveCard}
-        />
-      ))}
-    </>
-  );
+  return data.map((item, index) => (
+    <ConstructorIngredientsItem key={item._dndid} index={index} item={item} moveCard={moveCard} />
+  ));
 }
 
 export default ConstructorIngredientsList;
