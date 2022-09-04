@@ -26,12 +26,9 @@ import styles from './burger-constructor.module.css';
 function BurgerConstructor() {
   const [modalVisible, setModalVisible] = useState(false);
 
-  const { ingredients: data } = useSelector((state) => state.constructorIngredients);
+  const { ingredients: data, bun } = useSelector((state) => state.constructorIngredients);
   const { sum } = useSelector((state) => state.totalPrice);
   const dispatch = useDispatch();
-
-  const bun = useMemo(() => data.filter((item) => item.type === 'bun')[0], [data]);
-  const ingredients = useMemo(() => data.filter((item) => item.type !== 'bun'), [data]);
 
   const handleOpenModal = () => {
     const idIngredients = data.map((item) => item._id);
@@ -59,12 +56,12 @@ function BurgerConstructor() {
   });
 
   useEffect(() => {
-    dispatch(getTotalPrice(data));
-  }, [data, dispatch]);
+    dispatch(getTotalPrice(data, bun));
+  }, [data, bun, dispatch]);
 
   return (
     <div className={styles.constructorWrapper} ref={dropTargerRef}>
-      {data.length && bun ? (
+      {bun ? (
         <>
           <div className="mb-10">
             <div className={styles.constructorFirstItem}>
@@ -77,7 +74,7 @@ function BurgerConstructor() {
               />
             </div>
             <div className={styles.constructor}>
-              <ConstructorIngredientsList data={ingredients} />
+              <ConstructorIngredientsList data={data} />
             </div>
             <div className={styles.constructorLastItem}>
               <ConstructorElement
