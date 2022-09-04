@@ -36,6 +36,7 @@ const orderInitialState = {
 const totalPriceInitialState = { sum: 0 };
 
 const constructorInitialState = {
+  bun: null,
   ingredients: [],
 };
 
@@ -115,10 +116,11 @@ const orderReducer = (state = orderInitialState, action) => {
 const totalPriceReducer = (state = totalPriceInitialState, action) => {
   switch (action.type) {
     case GET_TOTAL_PRICE:
+      const bunPrice = action.bun?.price * 2;
       const total = action.ingredients.reduce((acc, item) => acc + item.price, 0);
       return {
         ...state,
-        sum: total,
+        sum: total + bunPrice,
       };
     default: {
       return state;
@@ -141,7 +143,7 @@ const constructorReducer = (state = constructorInitialState, action) => {
     case SWITCH_BUNS_INGREDIENT_CONSTRUCTOR:
       return {
         ...state,
-        ingredients: [...state.ingredients.filter((item) => item.type !== 'bun'), action.data],
+        bun: action.data,
       };
     case UPDATE_INGREDIENT_CONSTRUCTOR:
       return {
@@ -151,6 +153,7 @@ const constructorReducer = (state = constructorInitialState, action) => {
     case CLEAR_INGREDIENT_CONSTRUCTOR:
       return {
         ...state,
+        bun: null,
         ingredients: [],
       };
     default: {
