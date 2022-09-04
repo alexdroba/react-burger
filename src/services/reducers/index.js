@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import { v1 as random } from 'uuid';
 
 import {
   GET_INGREDIENTS_REQUEST,
@@ -15,6 +14,7 @@ import {
   DELETE_INGREDIENT_CONSTRUCTOR,
   SWITCH_BUNS_INGREDIENT_CONSTRUCTOR,
   UPDATE_INGREDIENT_CONSTRUCTOR,
+  CLEAR_INGREDIENT_CONSTRUCTOR,
 } from '../actions/index';
 
 const ingredientsInitialState = {
@@ -131,7 +131,7 @@ const constructorReducer = (state = constructorInitialState, action) => {
     case ADD_INGREDIENT_CONSTRUCTOR:
       return {
         ...state,
-        ingredients: [...state.ingredients, { ...action.data, _dndid: random() }],
+        ingredients: [...state.ingredients, { ...action.data, _dndid: action.dndid }],
       };
     case DELETE_INGREDIENT_CONSTRUCTOR:
       return {
@@ -147,6 +147,11 @@ const constructorReducer = (state = constructorInitialState, action) => {
       return {
         ...state,
         ingredients: [...action.data],
+      };
+    case CLEAR_INGREDIENT_CONSTRUCTOR:
+      return {
+        ...state,
+        ingredients: [],
       };
     default: {
       return state;
