@@ -116,7 +116,7 @@ const orderReducer = (state = orderInitialState, action) => {
 const totalPriceReducer = (state = totalPriceInitialState, action) => {
   switch (action.type) {
     case GET_TOTAL_PRICE:
-      const bunPrice = action.bun?.price * 2;
+      const bunPrice = action.bun ? action.bun?.price * 2 : 0;
       const total = action.ingredients.reduce((acc, item) => acc + item.price, 0);
       return {
         ...state,
