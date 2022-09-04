@@ -1,5 +1,7 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
+import { useDrag } from 'react-dnd';
+import { useSelector } from 'react-redux';
 
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 
@@ -11,8 +13,23 @@ function IngredientsItem({ data, onOpen }) {
     onOpen(data);
   }, [data]);
 
+  const [, dragRef] = useDrag({
+    type: 'ingredient',
+    item: data,
+  });
+
+  const { ingredients, bun } = useSelector((state) => state.constructorIngredients);
+
+  const counter = useMemo(() => {
+    return data.type !== 'bun'
+      ? ingredients.filter((item) => item._id === data._id).length
+      : bun?._id === data._id
+      ? 2
+      : 0;
+  }, [ingredients, bun]);
+
   return (
-    <div className={styles.ingredientsItem} onClick={handleOpenModal}>
+    <div className={styles.ingredientsItem} onClick={handleOpenModal} ref={dragRef}>
       <img src={data.image} alt={data.name} />
       <div className={styles.ingredientsItemPrice}>
         <span className="text text_type_digits-default mr-2">{data.price}</span>
@@ -21,7 +38,7 @@ function IngredientsItem({ data, onOpen }) {
       <div className={styles.ingredientsItemName}>
         <span className="text text_type_main-default">{data.name}</span>
       </div>
-      <Counter count={1} size="default" />
+      {counter !== 0 && <Counter count={counter} size="default" />}
     </div>
   );
 }

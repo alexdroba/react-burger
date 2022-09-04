@@ -1,12 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 import IngredientDetailsProperty from '../ingredient-details-property/ingredient-details-property';
 
-import { ingredientTypes } from '../../utils/types';
 import styles from './ingredient-details.module.css';
 
-function IngredientDetails({ data }) {
+function IngredientDetails() {
+  const { ingredient: data } = useSelector((state) => state.targetIngredient);
+
   return (
     <div>
       <div className={styles.ingredient}>
@@ -30,9 +31,5 @@ function IngredientDetails({ data }) {
     </div>
   );
 }
-
-IngredientDetails.propTypes = {
-  data: PropTypes.shape(ingredientTypes),
-};
 
 export default IngredientDetails;

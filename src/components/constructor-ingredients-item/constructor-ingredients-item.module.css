@@ -1,0 +1,16 @@
+.constructorItem {
+  display: flex;
+  align-items: center;
+  padding-right: 8px;
+}
+
+.constructorItem > svg {
+  flex-shrink: 0;
+  margin-right: 8px;
+}
+
+.constructorItem > div,
+.constructorFirstItem > div,
+.constructorLastItem > div {
+  max-width: none;
+}
