@@ -1,3 +1,5 @@
+import { v1 as random } from 'uuid';
+
 import { BASE_URL_INGREDIENTS, BASE_URL_ORDERS } from '../../utils/consts';
 
 export const GET_INGREDIENTS_REQUEST = 'GET_INGREDIENTS_REQUEST';
@@ -17,6 +19,7 @@ export const ADD_INGREDIENT_CONSTRUCTOR = 'ADD_INGREDIENT_CONSTRUCTOR';
 export const DELETE_INGREDIENT_CONSTRUCTOR = 'DELETE_INGREDIENT_CONSTRUCTOR';
 export const SWITCH_BUNS_INGREDIENT_CONSTRUCTOR = 'SWITCH_BUNS_INGREDIENT_CONSTRUCTOR';
 export const UPDATE_INGREDIENT_CONSTRUCTOR = 'UPDATE_INGREDIENT_CONSTRUCTOR';
+export const CLEAR_INGREDIENT_CONSTRUCTOR = 'CLEAR_INGREDIENT_CONSTRUCTOR';
 
 const checkResponse = (res) => (res.ok ? res.json() : Promise.reject(`Ошибка ${res.status}`));
 
@@ -90,6 +93,7 @@ export const addIngredientConstructor = (data) => {
   return {
     type: ADD_INGREDIENT_CONSTRUCTOR,
     data,
+    dndid: random(),
   };
 };
 
@@ -111,5 +115,11 @@ export const updateIngredientConstructor = (data) => {
   return {
     type: UPDATE_INGREDIENT_CONSTRUCTOR,
     data,
+  };
+};
+
+export const clearIngredientConstructor = () => {
+  return {
+    type: CLEAR_INGREDIENT_CONSTRUCTOR,
   };
 };
