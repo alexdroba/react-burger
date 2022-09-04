@@ -13,12 +13,9 @@ function IngredientsItem({ data, onOpen }) {
     onOpen(data);
   }, [data]);
 
-  const [{ opacity }, dragRef] = useDrag({
+  const [, dragRef] = useDrag({
     type: 'ingredient',
     item: data,
-    collect: (monitor) => ({
-      opacity: monitor.isDragging() ? 0.5 : 1,
-    }),
   });
 
   const { ingredients } = useSelector((state) => state.constructorIngredients);
@@ -29,11 +26,7 @@ function IngredientsItem({ data, onOpen }) {
   );
 
   return (
-    <div
-      className={styles.ingredientsItem}
-      onClick={handleOpenModal}
-      ref={dragRef}
-      style={{ opacity }}>
+    <div className={styles.ingredientsItem} onClick={handleOpenModal} ref={dragRef}>
       <img src={data.image} alt={data.name} />
       <div className={styles.ingredientsItemPrice}>
         <span className="text text_type_digits-default mr-2">{data.price}</span>
