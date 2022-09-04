@@ -18,12 +18,15 @@ function IngredientsItem({ data, onOpen }) {
     item: data,
   });
 
-  const { ingredients } = useSelector((state) => state.constructorIngredients);
+  const { ingredients, bun } = useSelector((state) => state.constructorIngredients);
 
-  const counter = useMemo(
-    () => ingredients.filter((item) => item._id === data._id).length,
-    [ingredients, data],
-  );
+  const counter = useMemo(() => {
+    return data.type !== 'bun'
+      ? ingredients.filter((item) => item._id === data._id).length
+      : bun?._id === data._id
+      ? 2
+      : 0;
+  }, [ingredients, bun]);
 
   return (
     <div className={styles.ingredientsItem} onClick={handleOpenModal} ref={dragRef}>
