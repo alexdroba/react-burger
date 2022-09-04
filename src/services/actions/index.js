@@ -82,10 +82,11 @@ export const getOrderData = (idIngredients) => {
   };
 };
 
-export const getTotalPrice = (ingredients) => {
+export const getTotalPrice = (ingredients, bun) => {
   return {
     type: GET_TOTAL_PRICE,
     ingredients,
+    bun,
   };
 };
 
