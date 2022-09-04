@@ -1,11 +1,13 @@
 import React, { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useDrop, useDrag } from 'react-dnd';
+import PropTypes from 'prop-types';
 
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import { deleteIngredientConstructor } from '../../services/actions/index';
 
+import { ingredientTypes } from '../../utils/types';
 import styles from './constructor-ingredients-item.module.css';
 
 function ConstructorIngredientsItem({ item, index, moveCard }) {
@@ -74,5 +76,11 @@ function ConstructorIngredientsItem({ item, index, moveCard }) {
     </div>
   );
 }
+
+ConstructorIngredientsItem.propTypes = {
+  item: PropTypes.shape(ingredientTypes).isRequired,
+  index: PropTypes.number.isRequired,
+  moveCard: PropTypes.func.isRequired,
+};
 
 export default ConstructorIngredientsItem;
