@@ -1,14 +1,9 @@
 import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-
 import ConstructorIngredientsItem from '../constructor-ingredients-item/constructor-ingredients-item';
 
-import {
-  deleteIngredientConstructor,
-  updateIngredientConstructor,
-} from '../../services/actions/index';
+import { updateIngredientConstructor } from '../../services/actions/index';
 
 import styles from './constructor-ingredients-list.module.css';
 
@@ -22,7 +17,6 @@ function ConstructorIngredientsList({ data }) {
       const newCards = [...ingredients];
       newCards.splice(dragIndex, 1);
       newCards.splice(hoverIndex, 0, dragCard);
-      console.log('SPL', newCards);
 
       dispatch(updateIngredientConstructor(newCards));
     },
