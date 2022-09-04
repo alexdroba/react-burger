@@ -18,6 +18,7 @@ import {
   addIngredientConstructor,
   switchBunsIngredientConstructor,
   getTotalPrice,
+  clearIngredientConstructor,
 } from '../../services/actions/index';
 
 import styles from './burger-constructor.module.css';
@@ -40,6 +41,7 @@ function BurgerConstructor() {
 
   const handleCloseModal = () => {
     setModalVisible(false);
+    dispatch(clearIngredientConstructor());
   };
 
   const [{ isHover }, dropTargerRef] = useDrop({
